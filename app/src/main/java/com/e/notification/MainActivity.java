@@ -5,6 +5,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -49,11 +51,17 @@ private NotificationManagerCompat notificationManagerCompat;
     }
     private void displayNotify1()
     {
+// Create an explicit intent for an Activity in your app
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         Notification notification= new NotificationCompat.Builder(this,CreateChannel.channel_1)
                 .setSmallIcon(R.drawable.ic_adb_black_24dp)
                 .setContentTitle("1st Notification")
                 .setContentText("this is first notification")
-                .setCategory(NotificationCompat.CATEGORY_EVENT)
+                .setCategory(NotificationCompat.CATEGORY_EVENT).setContentIntent(pendingIntent)
+            . addAction(R.drawable.ic_snooze, "reply",
+            pendingIntent).addAction(R.drawable.ic_snooze,"Test",pendingIntent)
                 .build();
         notificationManagerCompat.notify(i,notification);
 
@@ -61,11 +69,17 @@ private NotificationManagerCompat notificationManagerCompat;
 
     private void displayNotify2()
     {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         Notification notification= new NotificationCompat.Builder(this,CreateChannel.channel_2)
                 .setSmallIcon(R.drawable.ic_album_black_24dp)
                 .setContentTitle("2nd Notification")
                 .setContentText("this is second notification")
-                .setCategory(NotificationCompat.CATEGORY_EVENT)
+                .setCategory(NotificationCompat.CATEGORY_EVENT).setCategory(NotificationCompat.CATEGORY_EVENT)
+                .setContentIntent(pendingIntent)
+                . addAction(R.drawable.ic_snooze, "reply",
+                        pendingIntent).addAction(R.drawable.ic_snooze,"Test",pendingIntent)
                 .build();
         notificationManagerCompat.notify(i,notification);
 
